@@ -7,7 +7,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 // 서버 소켓을 생성하고 클라이언트를 기다린다.
-public class MyServer {
+public class ChatServer {
     public static ArrayList<PrintWriter> m_OutputList;
 
     public static void main(String[] args){
@@ -15,7 +15,7 @@ public class MyServer {
         m_OutputList = new ArrayList<PrintWriter>();
 
         try{
-            ServerSocket s_socket = new ServerSocket(5001);
+            ServerSocket s_socket = new ServerSocket(8888);
             while(true){
                 Socket c_socket = s_socket.accept();
                 ClientManagerThread c_thread = new ClientManagerThread();

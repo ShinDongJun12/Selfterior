@@ -19,9 +19,9 @@ public class ClientManagerThread extends Thread{
             while(true){
                 text = in.readLine();
                 if(text!=null) {
-                    for(int i=0;i<MyServer.m_OutputList.size();++i){
-                        MyServer.m_OutputList.get(i).println(text);
-                        MyServer.m_OutputList.get(i).flush();
+                    for(int i=0;i<ChatServer.m_OutputList.size();++i){
+                        ChatServer.m_OutputList.get(i).println(text);
+                        ChatServer.m_OutputList.get(i).flush();
                     }
                 }
             }

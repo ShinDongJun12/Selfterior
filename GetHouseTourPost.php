@@ -1,5 +1,7 @@
 <?php
-	include "dbcon.php"; // DB 연결.
+	//ini_set('display_errors', true);
+    
+    include "dbcon.php"; // DB 연결.
     mysqli_query($conn,'SET NAMES utf8'); // DB 한글깨짐 방지.
     header("Content-Type:text/html;charset=utf-8"); // utf-8로 설정 -> PHP 한글깨짐 방지. ex) echo "가나다라";를 출력하면 그래도 '가나다라'로 출력이 가능하게 해주는 것.
 
