@@ -260,18 +260,19 @@ public class ChatServer {
 
                     //JSONObject jsonObject = new JSONObject(jsonString); // JSONObject 객체로 생성.
 
-	            // json의 기본 반환형은 Long형 이다. 이것을 다시 Int형으로 변환행야 한다.
-                    int message_num = ((Long)jsonObject.get("message_num")).intValue();
-                    int room_num = ((Long)jsonObject.get("room_num")).intValue(); // 채팅방 고유번호. 
+	            try{
+
+	                    int message_num = jsonObject.getInt("message_num");
+                    int room_num = jsonObject.getInt("room_num"); // 채팅방 고유번호.
                     String room_num_str = Integer.toString(room_num);
 
-                    int user_num = ((Long)jsonObject.get("user_num")).intValue();
+                    int user_num = jsonObject.getInt("user_num");
                     String user_num_str = Integer.toString(user_num);
 
-                    String message_content = (String) jsonObject.get("message_content"); // ※ 해당 키 값을 통해 얻어지는 valye 값이 어떤 데이터인지 모르기 때문에 명시해 주어야한다.
-                    String regtime = (String) jsonObject.get("regtime");
-                    String message_type = (String) jsonObject.get("message_type");
-                    String user_profile_image = (String) jsonObject.get("user_profile_image");                   
+                    String message_content = jsonObject.getString("message_content");
+                    String regtime = jsonObject.getString("regtime");
+                    String message_type = jsonObject.getString("message_type");
+                    String user_profile_image = jsonObject.getString("user_profile_image");
 
                     // *containsKey() : 맵에서 인자로 보낸 키가 있는지 체크하는 메서드 
                     // (globalMap맵의 키값이 채팅방 고유번호이고 따라서 채팅방 고유번호가 존재하는지 체크하는 것이다.)

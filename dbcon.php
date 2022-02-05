@@ -6,7 +6,7 @@
 // 원래 이거.
  $servername = "localhost:3306"; // AWS EC2 인스턴스에 할당된 퍼블릭 IPv4 주소. localhost는 안해봤지만 될 것 같다. localhost = 127.0.0.1
  $username = "jun";		  		 // 사용자 이름
- $password = "qhekwjdwns1@"; 	 // MySQL 비밀번호
+ $password = "qhekwjdwoa1@"; 	 // MySQL 비밀번호
  $db_name = "selfterior";  	     // DB 이름
  
  $conn = mysqli_connect($servername, $username, $password, $db_name);
