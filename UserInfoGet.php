@@ -17,7 +17,7 @@
     if($exist > 0){
     
         $response = array(); // response라는 배열 생성
-        // 조회된 값이 존재하므로 그 값들의 response 배열에 담는다.
+        // ★조회된 값이 존재하므로 그 값들의 response 배열에 담는다.★
         $response = mysqli_fetch_array($ret); // members테이블에서 가져올 수 있는 회원정보는 다 가져옴. (유저 소개글, 팔로워 수, 팔로잉 수)
 
     // 회원이 작성한 집구경 게시물 겟수

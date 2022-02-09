@@ -7,6 +7,7 @@
     header("Content-Type:text/html;charset=utf-8"); // utf-8로 설정 -> PHP 한글깨짐 방지. ex) echo "가나다라";를 출력하면 그래도 '가나다라'로 출력이 가능하게 해주는 것.
 
     $userNum = $_POST["userNum"]; // 작성자 고유번호.
+    $userNum = (int)$userNum;
     $postTitle = $_POST["postTitle"]; // 게시물 제목
     $postContent = $_POST["postContent"]; // 게시물 내용
     $itemCategory = $_POST["itemCategory"]; // 아이템 카테고리
@@ -24,7 +25,7 @@
 
     // post_img_path값을 ''으로 하고 나머지 정보들은 그대로 DB에 저장한다. (post_num가 생긴다.).
     $sql1 = "INSERT INTO used_transaction_post (user_num, post_title, item_category, item_price, sale_address, post_content, post_imgPath, post_regtime)";
-    $sql1.= " VALUES ('$userNum', '$postTitle', '$itemCategory', '$itemPrice', '$address', '$postContent', 'mmm', now())";
+    $sql1.= " VALUES ($userNum, '$postTitle', '$itemCategory', '$itemPrice', '$address', '$postContent', 'mmm', now())";
     $res1 = mysqli_query($conn, $sql1);
     
     // DB에 정상적으로 저장되었으면.
