@@ -1,3 +1,7 @@
 {
-    "saveBackup.conf.backupDir": "C:\\selfteriorbackup"
+    "saveBackup.conf.backupDir": "C:\\selfteriorbackup",
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "/usr/local/JSON/json-simple-1.1.1.jar"
+    ]
 }

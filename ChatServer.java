@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
  
+// json-simple-1.1.1.jar (json simple 라이브러리)
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.json.simple.JSONObject;
@@ -49,7 +50,7 @@ public class ChatServer {
     public void init(){
         try{
             serverSocket = new ServerSocket(8888); // 8888포트로 서버소켓 객체생성.
-            System.out.println("##서버가 시작되었습니다.");
+            System.out.println("## 채팅 서버가 시작되었습니다.");
            
             while(true){ //서버가 실행되는 동안 클라이언트들의 접속을 기다림.
                 socket = serverSocket.accept(); //클라이언트의 접속을 기다리다가 접속이 되면 Socket객체를 생성.
