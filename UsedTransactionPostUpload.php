@@ -23,7 +23,7 @@
     // 클라이언트로 보낼 응답 배열
     $result = array();
 
-    // post_img_path값을 ''으로 하고 나머지 정보들은 그대로 DB에 저장한다. (post_num가 생긴다.).
+    // post_imgPath값을 'mmm'으로 하고 나머지 정보들은 그대로 DB에 저장한다. (post_num가 생긴다.).
     $sql1 = "INSERT INTO used_transaction_post (user_num, post_title, item_category, item_price, sale_address, post_content, post_imgPath, post_regtime)";
     $sql1.= " VALUES ($userNum, '$postTitle', '$itemCategory', '$itemPrice', '$address', '$postContent', 'mmm', now())";
     $res1 = mysqli_query($conn, $sql1);
@@ -202,11 +202,11 @@
                 }
             }
             else{
-                $uriList[] = "Nothing";
+                $uriList2[] = "Nothing";
             }
             
             // 서버에 저장된 사진의 uri 리스트 (서버에 이미지 저장하는 폴더로 업로드된 이미지 옮기고 그 경로를 uriList에 담는다.)
-            $uriList2 = json_encode($uriList); // jsonArray를 문자열로 변환
+            $uriList2 = json_encode($uriList2); // jsonArray를 문자열로 변환
 
             // DB에 게시물의 post_img_path, post_regtime 값을 추가적으로 저장한다.
             $sql3 = "UPDATE used_transaction_post SET post_imgPath = '$uriList2', post_regtime = now() WHERE post_num = $get_post_num";

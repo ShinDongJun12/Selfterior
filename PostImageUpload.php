@@ -1,7 +1,6 @@
 <?php
 
     //ini_set('display_errors', true);
-    
     include "dbcon.php"; // DB 연결.
     mysqli_query($conn,'SET NAMES utf8'); // DB 한글깨짐 방지.
     header("Content-Type:text/html;charset=utf-8"); // utf-8로 설정 -> PHP 한글깨짐 방지. ex) echo "가나다라";를 출력하면 그래도 '가나다라'로 출력이 가능하게 해주는 것.
@@ -210,7 +209,7 @@
             }
             
             // 서버에 저장된 사진의 uri 리스트 (서버에 이미지 저장하는 폴더로 업로드된 이미지 옮기고 그 경로를 uriList에 담는다.)
-            $uriList2 = json_encode($uriList); // jsonArray를 문자열로 변환
+            $uriList2 = json_encode($uriList2); // jsonArray를 문자열로 변환
 
             // DB에 게시물의 post_img_path, post_regtime 값을 추가적으로 저장한다.
             $sql3 = "UPDATE house_tour_post SET post_img_path = '$uriList2', post_regtime = now() WHERE post_num = $get_post_num";

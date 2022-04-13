@@ -3,16 +3,21 @@
     mysqli_query($conn,'SET NAMES utf8'); // DB 한글깨짐 방지.
     header("Content-Type:text/html;charset=utf-8"); // utf-8로 설정 -> PHP 한글깨짐 방지. ex) echo "가나다라";를 출력하면 그래도 '가나다라'로 출력이 가능하게 해주는 것.
 
-    $salesUserNum = $_POST["salesUserNum"]; // 판매자 고유번호.
-    $purchaseUserNum = $_POST["purchaseUserNum"]; // 구매자 고유번호.
-    $postNum = $_POST["postNum"]; // 중고거래 게시물 고유번호.
+    $salesUserNum = $_GET["salesUserNum"]; // 판매자 고유번호.
+    $purchaseUserNum = $_GET["purchaseUserNum"]; // 구매자 고유번호.
+    $postNum = $_GET["postNum"]; // 중고거래 게시물 고유번호.
 
     $chat_room_data_array = array(); // 채팅방에 대한 모든 데이터를 담을 배열
 
-    
-    // 채팅방 DB에 저장.
-    $sql = "INSERT INTO chat_room (sales_user_num, purchase_user_num, post_num)";
-    $sql.= " VALUES ($salesUserNum, $purchaseUserNum, $postNum)";
+    // 채팅방 알림 off한 유저 목록 컬럼 값
+    $notiOffList = array();
+    array_push($notiOffList, 0); // 디폴트값을 0으로 넣는다.
+    $notiOffList = json_encode($notiOffList); // jsonArray를 문자열로 변환
+    // $notiOffList = '["0"]';
+
+    // 채팅방 DB에 저장. (채팅방 생성시 message_content, regtime, message_type 값은 임의로 저장. -> 채팅 메시지 작성시 Update될 것.)
+    $sql = "INSERT INTO chat_room (sales_user_num, purchase_user_num, post_num, message_content, regtime, message_type, turn_off_notification)";
+    $sql.= " VALUES ($salesUserNum, $purchaseUserNum, $postNum, ' ', now(), ' ', '$notiOffList')";
     $res = mysqli_query($conn, $sql);
     
     // 채팅방 생성 성공.
@@ -25,7 +30,7 @@
             $get_chat_room_num = mysqli_insert_id($conn);
         
             // 방금 저장된 채팅 메시지 데이터 조회.
-            $sql = "SELECT * FROM chat_room WHERE post_num = $get_chat_room_num";
+            $sql = "SELECT * FROM chat_room WHERE room_num = $get_chat_room_num";
             $res = mysqli_query($conn, $sql);
             $chat_room = mysqli_fetch_assoc($res); // 조회한 데이터를 $chat_message에 모두 저장.
 
@@ -34,12 +39,10 @@
             $res_user = mysqli_query($conn, $sql_user); // 다른 형식의 SQL 구문, INSERT, UPDATE, DELETE, DROP 등에서 성공하면 TRUE를, 실패하면 FALSE를 반환합니다.
             $user_info = mysqli_fetch_assoc($res_user);
 
-            // ***** chat_room테이블의 채팅방 고유번호(room_num)데이터를 이용해 해당 채팅방의 가장 마지막 메시지의 '채팅 메시지 내용'과'채팅 메시지 등록날짜' 데이터를 조회한다. *****
-            $sql_message = "SELECT message_content, regtime FROM chat_message WHERE room_num = $chat_room[room_num] ORDER BY regtime DESC LIMIT 1";
-            // $sql_message = "SELECT MAX(regtime) FROM chat_message WHERE room_num = $chat_room[room_num]";
-            // $sql_message = "SELECT * FROM (SELECT * FROM chat_message ORDER BY regtime DESC) WHERE room_num = $chat_room[room_num] AND ROWNUM = 1";
-            $res_message = mysqli_query($conn, $sql_message); // 다른 형식의 SQL 구문, INSERT, UPDATE, DELETE, DROP 등에서 성공하면 TRUE를, 실패하면 FALSE를 반환합니다.
-            $chat_message_info = mysqli_fetch_assoc($res_message);
+            // ***** chat_room테이블의 게시물 고유번호(post_num)데이터를 이용해 '판매자 주소' 데이터를 조회한다. *****
+            $sql_post = "SELECT sale_address FROM used_transaction_post WHERE post_num = $chat_room[post_num]";
+            $res_post = mysqli_query($conn, $sql_post); // 다른 형식의 SQL 구문, INSERT, UPDATE, DELETE, DROP 등에서 성공하면 TRUE를, 실패하면 FALSE를 반환합니다.
+            $post_info = mysqli_fetch_assoc($res_post);
 
             
             // ***** 채팅방 데이터 최종 합치기 *****
@@ -49,10 +52,12 @@
                 'sales_user_num' => $chat_room['sales_user_num'], // 판매자 고유번호.
                 'purchase_user_num' => $chat_room['purchase_user_num'], // 구매자 고유번호.
                 'post_num' => $chat_room['post_num'], // 중고거래 게시물 고유번호.
+                'message_content' => $chat_room['message_content'], // 채팅방 제일 마지막 메시지 내용.
+                'regtime' => $chat_room['regtime'], //  채팅방 제일 마지막 메시지 등록날짜.
+                'message_type' => $chat_room['message_type'], //  채팅방 제일 마지막 메시지 타입.
                 'user_nickname' => $user_info['user_nickname'], // 채팅상대 유저 닉네임
                 'user_profile_image' => $user_info['profile_image'], // 채팅상대 유저 프로필 이미지.
-                'message_content' => $chat_message_info['message_content'], // 채팅방 제일 마지막 메시지 내용.
-                'regtime' => $chat_message_info['regtime'] //  채팅방 제일 마지막 메시지 등록날짜.
+                'sale_address' => $post_info['sale_address'] //  채팅방 게시물의 판매자 주소.
             ]; 
             array_push($chat_room_data_array, $data); // 리사이클러뷰에 보여줄 채팅방에 대한 모든 정보를 담은 $data를 $chat_room_data_array배열에 푸쉬.
         // }
