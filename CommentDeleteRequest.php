@@ -204,7 +204,7 @@
                                     $response = array(); // response라는 배열 생성
                             
                                     $response["success"] = true; 
-                                    $response["check"] = "삭제"; // 삭제된 댓글에 더 이상 답글이 남아있지 않아 삭제된 댓글 또한 삭제 처리함. 
+                                    $response["check"] = "마지막답글삭제"; // 삭제된 댓글에 더 이상 답글이 남아있지 않아 삭제된 댓글 또한 삭제 처리함. 
                                     echo json_encode($response);
                                 
                                     exit();
@@ -265,7 +265,7 @@
                                     $response = array(); // response라는 배열 생성
                             
                                     $response["success"] = true; 
-                                    $response["check"] = "삭제"; // 삭제된 댓글에 더 이상 답글이 남아있지 않아 삭제된 댓글 또한 삭제 처리함. 
+                                    $response["check"] = "마지막답글삭제"; // 삭제된 댓글에 더 이상 답글이 남아있지 않아 삭제된 댓글 또한 삭제 처리함. 
                                     echo json_encode($response);
                                 
                                     exit();
@@ -355,7 +355,7 @@
                                     $response = array(); // response라는 배열 생성
                             
                                     $response["success"] = true; 
-                                    $response["check"] = "삭제"; // 삭제된 댓글에 더 이상 답글이 남아있지 않아 삭제된 댓글 또한 삭제 처리함. 
+                                    $response["check"] = "마지막답글삭제"; // 삭제된 댓글에 더 이상 답글이 남아있지 않아 삭제된 댓글 또한 삭제 처리함. 
                                     echo json_encode($response);
                                 
                                     exit();
@@ -415,7 +415,7 @@
                                     $response = array(); // response라는 배열 생성
                             
                                     $response["success"] = true; 
-                                    $response["check"] = "삭제"; // 삭제된 댓글에 더 이상 답글이 남아있지 않아 삭제된 댓글 또한 삭제 처리함. 
+                                    $response["check"] = "마지막답글삭제"; // 삭제된 댓글에 더 이상 답글이 남아있지 않아 삭제된 댓글 또한 삭제 처리함. 
                                     echo json_encode($response);
                                 
                                     exit();

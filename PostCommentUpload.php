@@ -1,5 +1,5 @@
 <?php
-    ini_set('display_errors', true);
+    //ini_set('display_errors', true);
     
     include "dbcon.php"; // DB 연결.
     mysqli_query($conn,'SET NAMES utf8'); // DB 한글깨짐 방지.

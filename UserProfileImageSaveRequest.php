@@ -42,11 +42,12 @@
         $name = $userNum.'_'.'profileImage'.'.'.$type; //ex) 유저고유번호_profileImage.jpg
         $path = "$uploadDir/$name"; // 서버에 이미지를 저장할 경로.
         // ***********************************************************************************************************************************
-        $bIsMenuFileExist = file_exists("./".$path); // 해당경로에있는 특정 파일이 존재하면 1을 반환.
         // 회원 프로필이미지 폴더에 이미 같은 이름의 파일이 존재하면
-		if ($bIsMenuFileExist){
+		if (file_exists("./".$path)){ // (해당경로에있는 특정 파일이 존재하면 1을 반환.)
+            
             // 해당 파일을 삭제한다.
             if(!unlink("./".$path)) {
+                
                 // 삭제 실패
                 $result = array("result" => "error"); // $result["success"] = false;
                 echo "error";
@@ -54,9 +55,7 @@
               }
               else {
                 // 삭제 성공
-                // 중복된 파일명으로하면 클라이언트에서 실시간으로 인식을 못해서 이름 번경함.
-                $name = $userNum.'_'.'profileImage_change'.'.'.$type; //ex) 유저고유번호_profileImage_change.jpg
-                $path = "$uploadDir/$name"; // 서버에 이미지를 저장할 경로.
+                
               }
 		}
 		else{

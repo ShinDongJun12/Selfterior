@@ -48,7 +48,7 @@
     }
     
     // 최종 결과값 음수 예외처리.
-    if($itemPositionNumInt-$value <= 0){
+    if($itemPositionNumInt-$value < 0){
 
         $resultNum = 0; 
     }
